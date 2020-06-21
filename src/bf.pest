@@ -1,0 +1,25 @@
+INCR_POINTER = {">"}
+DECR_POINTER = {"<"}
+
+INCR_BYTE = {"+"}
+DECR_BYTE = {"-"}
+
+READ = {"."}
+WRITE = {","}
+
+LOOP_START = _{"["}
+LOOP_END = _{"]"}
+
+LOOPLESS_INSTR_SET = _{INCR_POINTER | DECR_POINTER | INCR_BYTE | DECR_BYTE | READ | WRITE}
+
+LOOP = {LOOP_START ~ EXPR* ~ LOOP_END}
+
+EXPR = _{LOOP | LOOPLESS_INSTR_SET}
+
+PROGRAM = {SOI ~ EXPR* ~ EOI}
+
+
+COMMENT = _{
+	("/*" ~ (!"*/" ~ ANY)* ~ "*/") |
+	(!(LOOPLESS_INSTR_SET | LOOP_START | LOOP_END) ~ ANY)+
+}
