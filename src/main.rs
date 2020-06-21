@@ -71,9 +71,9 @@ fn parse_and_run(s: &str) {
     match BFParser::parse(Rule::PROGRAM, s) {
         Ok(mut r) => {
             let program = r.next().unwrap();
-            //print(program.clone(), " ┣ ".into(), " ┗ ".into());
+            // print(program.clone(), " ┣ ".into(), " ┗ ".into());
 
-            //println!();
+            // println!();
 
             let c = as_code(program.into_inner());
             //println!("{:?}", c);

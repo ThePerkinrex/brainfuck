@@ -36,7 +36,7 @@ fn inner_run(c: &Vec<Code>, tape: &mut [u8], pointer: &mut usize) {
 				let ch = buf.bytes().next().expect("No char to read");
 				tape[*pointer] = ch;
 			}
-			Code::WRITE() => println!("{} {}", tape[*pointer] as char, tape[*pointer]),
+			Code::WRITE() => print!("{}", tape[*pointer] as char),
 
 			Code::LOOP(to_loop) => {
 				while tape[*pointer] != 0 {

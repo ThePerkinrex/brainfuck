@@ -21,5 +21,6 @@ PROGRAM = {SOI ~ EXPR* ~ EOI}
 
 COMMENT = _{
 	("/*" ~ (!"*/" ~ ANY)* ~ "*/") |
+	("//" ~ (!NEWLINE ~ ANY)* ~ NEWLINE) |
 	(!(LOOPLESS_INSTR_SET | LOOP_START | LOOP_END) ~ ANY)+
 }
