@@ -68,8 +68,11 @@ fn repl() {
 }
 
 fn parse_and_run(s: &str) {
+    let parsing = std::time::Instant::now();
     match BFParser::parse(Rule::PROGRAM, s) {
         Ok(mut r) => {
+            let p_e = parsing.elapsed();
+            println!("Parsing elapsed {}μs", p_e.as_micros());
             let program = r.next().unwrap();
             // print(program.clone(), " ┣ ".into(), " ┗ ".into());
 
@@ -77,8 +80,12 @@ fn parse_and_run(s: &str) {
 
             let c = as_code(program.into_inner());
             //println!("{:?}", c);
+            let running = std::time::Instant::now();
             interpreter::run(c);
-            println!("")
+            let r_e = running.elapsed();
+            let t_e = parsing.elapsed();
+            println!("\nRunning elapsed {}μs", r_e.as_micros());
+            println!("\nTotal elapsed (with addeed AST conversion) {}μs", t_e.as_micros());
         }
         Err(e) => println!("{}", e),
     }
